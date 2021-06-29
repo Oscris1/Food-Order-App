@@ -2,6 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+
+import TabNavigator from './navigation/TabNavigator';
 
 import store from './store';
 
@@ -10,19 +13,9 @@ import Test from './components/Test';
 export default function App() {
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <Test />
-        <StatusBar style='auto' />
-      </View>
+      <NavigationContainer>
+        <TabNavigator />
+      </NavigationContainer>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
