@@ -15,7 +15,7 @@ const MenuScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text>Menu Screen</Text>
+        <Text style={styles.headerText}>Wybierz pysznego burgera</Text>
       </View>
 
       <FlatList
@@ -38,6 +38,14 @@ const styles = StyleSheet.create({
   header: {
     marginTop: 50,
     marginBottom: 10,
+    marginHorizontal: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: 'tomato',
+  },
+  headerText: {
+    fontSize: 25,
+    fontWeight: '700',
+    marginBottom: 2,
   },
   menuList: {},
 });
