@@ -33,10 +33,11 @@ export default MenuScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: 'hsl(0, 0%, 93%)',
   },
   header: {
-    marginVertical: 40,
+    marginTop: 50,
+    marginBottom: 10,
   },
+  menuList: {},
 });
