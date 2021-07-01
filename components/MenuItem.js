@@ -1,16 +1,30 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../store/cart-slice';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const MenuItem = ({ menuData }) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.nameHeader}>{menuData.name}</Text>
         <Text style={styles.price}>{menuData.price} zł</Text>
 
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() =>
+            dispatch(
+              addItemToCart({
+                id: menuData.id,
+                name: menuData.name,
+                price: menuData.price,
+              })
+            )
+          }
+        >
           <MaterialCommunityIcons name='cart-plus' size={26} color='white' />
         </TouchableOpacity>
       </View>
