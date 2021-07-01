@@ -1,14 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 
 import TabNavigator from './navigation/TabNavigator';
 
 import store from './store';
-
-import Test from './components/Test';
 
 export default function App() {
   return (
