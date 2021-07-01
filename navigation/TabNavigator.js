@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,9 +6,12 @@ import { Ionicons } from '@expo/vector-icons';
 import MenuScreen from '../screens/MenuScreen';
 import CartScreen from '../screens/CartScreen';
 
+import { useSelector } from 'react-redux';
+
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
+  const cartQuantity = useSelector((state) => state.cart.totalQuantity);
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -32,7 +34,7 @@ const TabNavigator = () => {
       <Tab.Screen
         name='Cart'
         component={CartScreen}
-        options={{ tabBarBadge: 11 }}
+        options={{ tabBarBadge: cartQuantity }}
       ></Tab.Screen>
     </Tab.Navigator>
   );
