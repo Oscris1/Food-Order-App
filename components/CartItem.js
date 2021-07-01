@@ -15,16 +15,17 @@ export default CartItem;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 2,
     margin: 10,
     backgroundColor: '#fff',
     overflow: 'hidden',
+    borderRadius: 5,
   },
 
   nameHeader: {
     fontSize: 15,
     fontWeight: '700',
     color: '#000',
-    marginTop: 10,
   },
   price: {},
 });
