@@ -1,22 +1,53 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addItemToCart, removeItemFromCart } from '../store/cart-slice';
 
 const CartItem = ({ cartData }) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
+      {/* Left container */}
       <View style={styles.leftContainer}>
         <Text style={styles.nameHeader}>{cartData.name}</Text>
         <Text style={styles.price}>za sztukę: {cartData.price} zł</Text>
       </View>
+
+      {/* Right container */}
       <View style={styles.rightContainer}>
-        <TouchableOpacity style={styles.cartButton}>
+        {/* Increace quantity button */}
+        <TouchableOpacity
+          onPress={() =>
+            dispatch(
+              addItemToCart({
+                id: cartData.id,
+                name: cartData.name,
+                price: cartData.price,
+              })
+            )
+          }
+          style={styles.cartButton}
+        >
           <Text style={styles.cartButtonText}>+</Text>
         </TouchableOpacity>
+
+        {/* Quantity info box */}
         <View style={styles.quantityInfo}>
           <Text>ilość {cartData.quantity} </Text>
           <Text>cena: {cartData.totalPrice} zł</Text>
         </View>
-        <TouchableOpacity style={styles.cartButton}>
+
+        {/* Decrease quantity button */}
+        <TouchableOpacity
+          style={styles.cartButton}
+          onPress={() =>
+            dispatch(
+              removeItemFromCart({
+                id: cartData.id,
+              })
+            )
+          }
+        >
           <Text style={styles.cartButtonText}>-</Text>
         </TouchableOpacity>
       </View>
@@ -66,5 +97,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   quantityInfo: {},
-  price: {},
 });
