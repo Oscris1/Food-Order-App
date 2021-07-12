@@ -6,11 +6,13 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 import CartItem from '../components/CartItem';
 
 const MenuScreen = () => {
+  const navigation = useNavigation();
   const cartData = useSelector((state) => state.cart);
   const items = cartData.items;
   return (
@@ -28,7 +30,10 @@ const MenuScreen = () => {
             Do zapłaty: {cartData.totalPrice} zł
           </Text>
         </View>
-        <TouchableOpacity style={styles.orderButton}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OrderModal')}
+          style={styles.orderButton}
+        >
           <Text style={styles.orderButtonText}>Zamów</Text>
         </TouchableOpacity>
       </View>
