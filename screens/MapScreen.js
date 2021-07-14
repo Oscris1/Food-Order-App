@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
-const OrderModal = () => {
+const MapScreen = () => {
   const navigation = useNavigation();
   const [location, setLocation] = useState(null);
   const [restaurantCoordinate, setRestaurantCoordinate] = useState(null);
@@ -40,9 +40,10 @@ const OrderModal = () => {
   }
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text>Wróć</Text>
-      </TouchableOpacity>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Wybierz Restaurację</Text>
+      </View>
+
       {location && (
         <MapView
           style={styles.map}
@@ -101,23 +102,37 @@ const OrderModal = () => {
   );
 };
 
-export default OrderModal;
+export default MapScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
+  },
+  header: {
+    marginTop: 50,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: 'tomato',
+  },
+  headerText: {
+    fontSize: 25,
+    fontWeight: '700',
+    marginBottom: 2,
   },
   map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 100,
+    width: Dimensions.get('window').width - 20,
+    height: '78%',
+    marginHorizontal: 10,
+    marginBottom: 10,
   },
   orderButton: {
     padding: 10,
     backgroundColor: 'tomato',
     borderRadius: 10,
+    marginHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   orderButtonText: {
     color: '#fff',

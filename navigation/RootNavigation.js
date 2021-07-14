@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './TabNavigator';
-import OrderModal from '../screens/OrderModal';
+import MapScreen from '../screens/MapScreen';
 
 const RootStack = createStackNavigator();
 
@@ -12,7 +12,7 @@ const RootNavigation = () => {
     <RootStack.Navigator mode='modal'>
       <RootStack.Screen
         name='OrderModal'
-        component={OrderModal}
+        component={MapScreen}
         options={{ headerShown: false }}
       />
       <RootStack.Screen
