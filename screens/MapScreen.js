@@ -90,13 +90,19 @@ const MapScreen = () => {
           />
         </MapView>
       )}
-      {restaurantCoordinate && (
+      {restaurantCoordinate ? (
         <TouchableOpacity
           style={styles.orderButton}
           onPress={() => navigation.navigate('Main')}
         >
           <Text style={styles.orderButtonText}>Wybierz</Text>
         </TouchableOpacity>
+      ) : (
+        <View style={styles.orderPlaceholder}>
+          <Text style={styles.orderPlaceholderText}>
+            Musisz wybrać restaurację
+          </Text>
+        </View>
       )}
     </View>
   );
@@ -135,6 +141,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   orderButtonText: {
+    color: '#fff',
+  },
+  orderPlaceholder: {
+    padding: 10,
+    backgroundColor: 'grey',
+    borderRadius: 10,
+    marginHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  orderPlaceholderText: {
     color: '#fff',
   },
 });
