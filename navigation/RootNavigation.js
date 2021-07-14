@@ -11,13 +11,13 @@ const RootNavigation = () => {
   return (
     <RootStack.Navigator mode='modal'>
       <RootStack.Screen
-        name='Main'
-        component={TabNavigator}
+        name='OrderModal'
+        component={OrderModal}
         options={{ headerShown: false }}
       />
       <RootStack.Screen
-        name='OrderModal'
-        component={OrderModal}
+        name='Main'
+        component={TabNavigator}
         options={{ headerShown: false }}
       />
     </RootStack.Navigator>

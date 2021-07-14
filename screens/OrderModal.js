@@ -66,7 +66,10 @@ const OrderModal = () => {
             }}
             image={require('../assets/hamburger.jpg')}
             opacity={0.6}
-            onPress={(e) => setRestaurantCoordinate(e.nativeEvent.coordinate)}
+            onPress={(e) => {
+              setRestaurantCoordinate(e.nativeEvent.coordinate);
+              console.log(restaurantCoordinate);
+            }}
             title={'Restauracja Raszyn'}
             description='Raszyn'
           />
@@ -77,15 +80,23 @@ const OrderModal = () => {
             }}
             image={require('../assets/hamburger.jpg')}
             opacity={0.6}
-            onPress={(e) => setRestaurantCoordinate(e.nativeEvent.coordinate)}
+            onPress={(e) => {
+              setRestaurantCoordinate(e.nativeEvent.coordinate);
+              console.log(restaurantCoordinate);
+            }}
             title={'Restauracja Sękocin'}
             description='Sękocin Nowy'
           />
         </MapView>
       )}
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text>Twoja lokalizacja</Text>
-      </TouchableOpacity>
+      {restaurantCoordinate && (
+        <TouchableOpacity
+          style={styles.orderButton}
+          onPress={() => navigation.navigate('Main')}
+        >
+          <Text style={styles.orderButtonText}>Wybierz</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -102,5 +113,13 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height - 100,
+  },
+  orderButton: {
+    padding: 10,
+    backgroundColor: 'tomato',
+    borderRadius: 10,
+  },
+  orderButtonText: {
+    color: '#fff',
   },
 });
