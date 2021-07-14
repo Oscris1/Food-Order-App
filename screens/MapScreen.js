@@ -12,11 +12,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
+import {
+  setRestaurantLocation,
+  setUserLocation,
+} from '../store/location-slice';
+
 const MapScreen = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [location, setLocation] = useState(null);
   const [restaurantCoordinate, setRestaurantCoordinate] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  const selectRestaurantHandler = () => {
+    dispatch(setRestaurantLocation(restaurantCoordinate));
+    dispatch(setUserLocation(location.coords));
+    navigation.navigate('Main');
+  };
 
   useEffect(() => {
     (async () => {
@@ -93,7 +105,7 @@ const MapScreen = () => {
       {restaurantCoordinate ? (
         <TouchableOpacity
           style={styles.orderButton}
-          onPress={() => navigation.navigate('Main')}
+          onPress={selectRestaurantHandler}
         >
           <Text style={styles.orderButtonText}>Wybierz</Text>
         </TouchableOpacity>
