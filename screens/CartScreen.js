@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as Notifications from 'expo-notifications';
 
 import CartItem from '../components/CartItem';
+import { clearCart } from '../store/cart-slice';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -23,9 +24,10 @@ Notifications.setNotificationHandler({
 const MenuScreen = () => {
   const navigation = useNavigation();
   const cartData = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const items = cartData.items;
 
-  const TriggerNotificationHandler = () => {
+  const OrderHandler = () => {
     Notifications.scheduleNotificationAsync({
       content: {
         title: 'Zamówienie zostało złożone',
@@ -35,6 +37,7 @@ const MenuScreen = () => {
         seconds: 1,
       },
     });
+    dispatch(clearCart());
   };
 
   return (
@@ -52,10 +55,7 @@ const MenuScreen = () => {
             Do zapłaty: {cartData.totalPrice} zł
           </Text>
         </View>
-        <TouchableOpacity
-          onPress={TriggerNotificationHandler}
-          style={styles.orderButton}
-        >
+        <TouchableOpacity onPress={OrderHandler} style={styles.orderButton}>
           <Text style={styles.orderButtonText}>Zamów</Text>
         </TouchableOpacity>
       </View>
