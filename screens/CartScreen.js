@@ -8,13 +8,35 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import * as Notifications from 'expo-notifications';
 
 import CartItem from '../components/CartItem';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 const MenuScreen = () => {
   const navigation = useNavigation();
   const cartData = useSelector((state) => state.cart);
   const items = cartData.items;
+
+  const TriggerNotificationHandler = () => {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Zamówienie zostało złożone',
+        body: `Przygotuj ${cartData.totalPrice} zł. Twoje zamówienie dotrze za 30-60 minut`,
+      },
+      trigger: {
+        seconds: 1,
+      },
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -31,7 +53,7 @@ const MenuScreen = () => {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('OrderModal')}
+          onPress={TriggerNotificationHandler}
           style={styles.orderButton}
         >
           <Text style={styles.orderButtonText}>Zamów</Text>
