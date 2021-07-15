@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,15 +29,29 @@ const MenuScreen = () => {
   const items = cartData.items;
 
   const OrderHandler = () => {
+    if (cartData.totalQuantity === 0) {
+      Alert.alert(
+        'Pusty koszyk',
+        'Przed zamówieniem musisz dodać coś do koszyka',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
     Notifications.scheduleNotificationAsync({
       content: {
         title: 'Zamówienie zostało złożone',
-        body: `Przygotuj ${cartData.totalPrice} zł. Twoje zamówienie dotrze za 30-60 minut`,
+        body: `Przygotuj ${cartData.totalPrice} zł. Twoje zamówienie dotrze za 30-60 minut.`,
       },
       trigger: {
         seconds: 1,
       },
     });
+    Alert.alert(
+      'Zamówienie zostało złożone',
+      `Przygotuj ${cartData.totalPrice} zł. Twoje zamówienie dotrze za 30-60 minut.`,
+      [{ text: 'OK' }]
+    );
+
     dispatch(clearCart());
     navigation.navigate('Menu');
   };
