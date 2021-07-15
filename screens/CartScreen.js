@@ -38,6 +38,7 @@ const MenuScreen = () => {
       },
     });
     dispatch(clearCart());
+    navigation.navigate('Menu');
   };
 
   return (
