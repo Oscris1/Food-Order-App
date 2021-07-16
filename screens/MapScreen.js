@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -37,6 +38,11 @@ const MapScreen = () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
+        Alert.alert(
+          'Wymagane uprawnienia',
+          'Ta aplikacja wymaga dostępu do lokalizacji urządzenia.',
+          [{ text: 'OK' }]
+        );
         return;
       }
 
@@ -45,13 +51,6 @@ const MapScreen = () => {
     })();
   }, []);
 
-  let text = 'Waiting..';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-    console.log(text);
-  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -92,6 +91,7 @@ const MapScreen = () => {
           ))}
         </MapView>
       )}
+
       {restaurantCoordinate ? (
         <TouchableOpacity
           style={styles.orderButton}
