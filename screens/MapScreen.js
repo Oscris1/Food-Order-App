@@ -92,20 +92,21 @@ const MapScreen = () => {
         </MapView>
       )}
 
-      {restaurantCoordinate ? (
-        <TouchableOpacity
-          style={styles.orderButton}
-          onPress={selectRestaurantHandler}
-        >
-          <Text style={styles.orderButtonText}>Wybierz</Text>
-        </TouchableOpacity>
-      ) : (
-        <View style={styles.orderPlaceholder}>
-          <Text style={styles.orderPlaceholderText}>
-            Musisz wybrać restaurację
-          </Text>
-        </View>
-      )}
+      {location &&
+        (restaurantCoordinate ? (
+          <TouchableOpacity
+            style={styles.orderButton}
+            onPress={selectRestaurantHandler}
+          >
+            <Text style={styles.orderButtonText}>Wybierz</Text>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.orderPlaceholder}>
+            <Text style={styles.orderPlaceholderText}>
+              Musisz wybrać restaurację
+            </Text>
+          </View>
+        ))}
     </View>
   );
 };
