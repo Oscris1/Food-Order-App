@@ -20,6 +20,7 @@ const OrderButton = () => {
   const dispatch = useDispatch();
 
   const OrderHandler = () => {
+    // if cart is empty display alert
     if (cartData.totalQuantity === 0) {
       Alert.alert(
         'Pusty koszyk',
@@ -28,6 +29,8 @@ const OrderButton = () => {
       );
       return;
     }
+
+    // Notification about order
     Notifications.scheduleNotificationAsync({
       content: {
         title: 'Zamówienie zostało złożone',
@@ -37,13 +40,17 @@ const OrderButton = () => {
         seconds: 1,
       },
     });
+
+    // Alert about order
     Alert.alert(
       'Zamówienie zostało złożone',
       `Przygotuj ${cartData.totalPrice} zł. Twoje zamówienie dotrze za 30-60 minut.`,
       [{ text: 'OK' }]
     );
-
+    // clear cart
     dispatch(clearCart());
+
+    // navigate to menu
     navigation.navigate('Menu');
   };
   return (
