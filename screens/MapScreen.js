@@ -17,6 +17,8 @@ import {
   setUserLocation,
 } from '../store/location-slice';
 
+import { restaurants } from '../utils/restaurants';
+
 const MapScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -72,34 +74,22 @@ const MapScreen = () => {
               longitude: location.coords.longitude,
             }}
           />
-          <Marker
-            coordinate={{
-              latitude: 52.157501,
-              longitude: 20.92382,
-            }}
-            image={require('../assets/hamburger.jpg')}
-            opacity={0.6}
-            onPress={(e) => {
-              setRestaurantCoordinate(e.nativeEvent.coordinate);
-              console.log(restaurantCoordinate);
-            }}
-            title={'Restauracja Raszyn'}
-            description='Raszyn'
-          />
-          <Marker
-            coordinate={{
-              latitude: 52.11199,
-              longitude: 20.879,
-            }}
-            image={require('../assets/hamburger.jpg')}
-            opacity={0.6}
-            onPress={(e) => {
-              setRestaurantCoordinate(e.nativeEvent.coordinate);
-              console.log(restaurantCoordinate);
-            }}
-            title={'Restauracja Sękocin'}
-            description='Sękocin Nowy'
-          />
+
+          {/* Restaurants markers*/}
+          {restaurants.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={marker.coordinate}
+              title={marker.title}
+              description={marker.description}
+              image={require('../assets/hamburger.jpg')}
+              opacity={0.6}
+              onPress={(e) => {
+                setRestaurantCoordinate(e.nativeEvent.coordinate);
+                console.log(restaurantCoordinate);
+              }}
+            />
+          ))}
         </MapView>
       )}
       {restaurantCoordinate ? (
